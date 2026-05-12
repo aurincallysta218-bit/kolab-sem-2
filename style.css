@@ -363,6 +363,9 @@ header {
 
 /* Keyframe untuk muncul, diam, dan menghilang */
 @keyframes slideAndHide {
+    0% { transform: translateX(110%); }      /* Di luar layar kanan */
+    10% { transform: translateX(0%); }       /* Masuk */
+    90% { transform: translateX(0%); opacity: 1; } /* Tetap diam */
     100% { transform: translateX(110%); opacity: 0; } /* Keluar & hilang */
 }
 
