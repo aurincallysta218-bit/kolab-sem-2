@@ -9,6 +9,7 @@
 body {
     background-color: #d1e3f8;
     color: #1a4a7a;
+    background-color: #f0f7ff;
 }
 
 /* NAVBAR */
@@ -307,6 +308,68 @@ header {
     resize: none;
 }
 
+.toast-container {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    overflow: hidden;
+}
+
+.toast {
+    position: relative;
+    background: #fff;
+    padding: 15px 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-left: 6px solid #4070f4;
+    /* Animasi masuk dan keluar otomatis (durasi total 5 detik) */
+    animation: slideAndHide 5s ease-in-out forwards;
+}
+
+.toast.success { border-left-color: #00b894; }
+.toast i { color: #00b894; font-size: 25px; }
+
+.toast-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.text-1 { font-weight: bold; color: #333; }
+.text-2 { font-size: 14px; color: #666; font-family: sans-serif; }
+
+/* Progress bar di bagian bawah toast */
+.progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background: #ddd;
+}
+
+.progress::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #00b894;
+    animation: progressAnim 5s linear forwards;
+}
+
+/* Keyframe untuk muncul, diam, dan menghilang */
+@keyframes slideAndHide {
+    100% { transform: translateX(110%); opacity: 0; } /* Keluar & hilang */
+}
+
+/* Animasi progress bar menyusut */
+@keyframes progressAnim {
+    100% { right: 100%; }
+}
 ::placeholder { color: #a7c7e7; }
 
 /* FOOTER */
