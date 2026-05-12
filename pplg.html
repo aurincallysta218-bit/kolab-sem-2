@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman PPLG</title>
+    <style>
+        /* RESET & BASE STYLES */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f3f4f6; color: #333; line-height: 1.6; }
+
+        /* HEADER SECTION */
+        header {
+            background: linear-gradient(rgba(30, 64, 175, 0.9), rgba(30, 64, 175, 0.9)), 
+                        url('https://unsplash.com') center/cover;
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+        }
+        header h1 { font-size: 2.2rem; text-transform: uppercase; margin-bottom: 10px; }
+        header p { max-width: 700px; margin: 0 auto; font-size: 0.9rem; opacity: 0.8; }
+
+        /* MAIN CONTENT LAYOUT */
+        .container {
+            max-width: 1100px;
+            margin: -40px auto 40px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            padding: 0 20px;
+        }
+        .card { background: white; border-radius: 12px; padding: 30px; shadow: 0 4px 6px rgba(0,0,0,0.1); }
+
+        /* LEFT CONTENT */
+        .content-left h2 { font-size: 1.6rem; margin-bottom: 15px; color: #111; }
+        .content-left p { font-size: 0.95rem; color: #555; margin-bottom: 25px; }
+
+        /* GRID INFO (Web Dev & Game Dev) */
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
+        .info-item { border: 1px solid #eee; padding: 15px; border-radius: 8px; display: flex; align-items: center; }
+        .icon { width: 40px; height: 40px; background: #ebf2ff; border-radius: 6px; margin-right: 15px; }
+
+        /* LIST FASILITAS */
+        .fasilitas h3 { margin-bottom: 15px; font-size: 1.1rem; }
+        .fasilitas-list { list-style: none; }
+        .fasilitas-list li { 
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.85rem;
+        }
+        .badge { background: #2563eb; color: white; padding: 2px 12px; border-radius: 20px; font-size: 0.75rem; }
+
+        /* RIGHT SIDEBAR */
+        .sidebar-card { background: white; border-radius: 12px; overflow: hidden; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .sidebar-header { background: #222; color: white; text-align: center; padding: 12px; font-weight: bold; font-size: 0.9rem; }
+        .sidebar-content { padding: 20px; }
+        
+        /* PROGRESS BAR */
+        .progress-text { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 5px; }
+        .progress-bg { background: #e5e7eb; height: 10px; border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
+        .progress-fill { background: #2563eb; width: 75%; height: 100%; border-radius: 10px; }
+
+        .btn-daftar {
+            width: 100%; background: #2563eb; color: white; border: none; padding: 12px;
+            border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.3s;
+        }
+        .btn-daftar:hover { background: #1d4ed8; }
+
+        /* KOTAK BACA SELENGKAPNYA (DI KIRI POJOK) */
+        .read-more-wrapper {
+            margin-top: 30px;
+            display: flex;
+            justify-content: flex-start; /* Memastikan ke pojok kiri */
+        }
+        .read-more-btn {
+            display: inline-block;
+            border: 1.5px solid #2563eb;
+            color: #2563eb;
+            text-decoration: none;
+            padding: 6px 18px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .read-more-btn:hover { background: #f0f7ff; }
+
+        /* FOOTER */
+        footer { background: #111; color: white; text-align: center; padding: 20px; font-size: 0.8rem; margin-top: 40px; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .container { grid-template-columns: 1fr; margin-top: 20px; }
+            .info-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>PENGEMBANGAN PERANGKAT LUNAK DAN GIM</h1>
+        <p>Menjadi program keahlian yang unggul dalam mencetak tenaga profesional di bidang teknologi informasi dan pembuatan aplikasi masa depan.</p>
+    </header>
+
+    <div class="container">
+        <!-- Bagian Kiri -->
+        <div class="content-left">
+            <div class="card">
+                <h2>Membangun Masa Depan Melalui Kode</h2>
+                <p>Rekayasa Perangkat Lunak (PPLG) merupakan program keahlian yang mempelajari proses pembuatan perangkat lunak secara lengkap, mulai dari analisis kebutuhan pengguna, perancangan sistem, pemrograman, hingga pengujian aplikasi.</p>
+
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="icon"></div>
+                        <div><strong>Web Dev</strong><br><small>Frontend & Backend</small></div>
+                    </div>
+                    <div class="info-item">
+                        <div class="icon"></div>
+                        <div><strong>Game Dev</strong><br><small>2D/3D & Mechanic</small></div>
+                    </div>
+                </div>
+
+                <div class="fasilitas">
+                    <h3>Fasilitas Unggulan</h3>
+                    <ul class="fasilitas-list">
+                        <li><span>Laboratorium Komputer Modern</span> <span class="badge">5 Lab</span></li>
+                        <li><span>Akses High Speed Internet</span> <span class="badge">10 Gbps</span></li>
+                        <li><span>Sertifikasi Oracle & Microsoft</span> <span class="badge">Tersedia</span></li>
+                    </ul>
+                </div>
+
+                <!-- TOMBOL YANG DIMINTA -->
+                <div class="read-more-wrapper">
+                    <a href="#" class="read-more-btn" onclick="showAlert()">baca selengkapnya</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bagian Kanan (Sidebar) -->
+        <div class="sidebar">
+            <div class="sidebar-card">
+                <div class="sidebar-header">Status Pendaftaran</div>
+                <div class="sidebar-content">
+                    <div class="progress-text">
+                        <span>Kuota Terisi</span>
+                        <span id="quota-val">75%</span>
+                    </div>
+                    <div class="progress-bg">
+                        <div class="progress-fill" id="bar"></div>
+                    </div>
+                    <button class="btn-daftar" onclick="register()">DAFTAR SEKARANG</button>
+                </div>
+            </div>
+
+            <div class="card" style="padding: 15px;">
+                <img src="download.png" style="width: 100%; border-radius: 8px; margin-bottom: 10px;">
+                <p style="font-size: 0.8rem; font-style: italic; color: #666;">"PPLG mengajarkan saya logika berpikir yang sangat berguna di dunia kerja."</p>
+                <p style="font-size: 0.8rem; font-weight: bold; margin-top: 5px;">- Ahmad, Alumni 2024</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        © 2024 SMK BISA - PPLG Jaya. Seluruh Hak Cipta Dilindungi.
+    </footer>
+
+    <!-- JAVASCRIPT SEDERHANA -->
+    <script>
+        function showAlert() {
+            alert("Membuka detail kurikulum PPLG...");
+        }
+
+        function register() {
+            alert("Mengarahkan ke halaman formulir pendaftaran...");
+        }
+        </script>
+</body>
+</html>

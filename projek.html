@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beauty — Natural Cosmetics Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- ============================================================
+       CSS
+       ============================================================ -->
+  <style>
+    /* ────────────────────────────────────────────
+       VARIABLES & RESET
+       ──────────────────────────────────────────── */
+    :root {
+      --pink:       #e8a0a8;
+      --pink-light: #f5d5da;
+      --pink-pale:  #fdf0f2;
+      --blush:      #f2c4c8;
+      --rose:       #d4737e;
+      --rose-dark:  #b5545f;
+      --nude:       #f0e0d6;
+      --gold:       #c9956c;
+      --gold-light: #e8c4a0;
+      --text:       #2a1f22;
+      --text-mid:   #6b5057;
+      --text-light: #9e8a8e;
+      --white:      #ffffff;
+      --off-white:  #fdfaf9;
+      --serif:      'Playfair Display', Georgia, serif;
+      --sans:       'DM Sans', sans-serif;
+      --tr:         0.28s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html  { scroll-behavior: smooth; }
+    body  {
+      font-family: var(--sans);
+      background: var(--off-white);
+      color: var(--text);
+      overflow-x: hidden;
+      font-weight: 300;
+    }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: var(--sans); }
+
+    /* ────────────────────────────────────────────
+       ANNOUNCEMENT BAR
+       ──────────────────────────────────────────── */
+    .announce-bar {
+      background: var(--pink-light);
+      text-align: center;
+      padding: 9px 20px;
+      font-size: 12px;
+      letter-spacing: .06em;
+      color: var(--rose-dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      transition: opacity .3s;
+    }
+    .announce-bar .sep { opacity: .4; }
+
+    /* ────────────────────────────────────────────
+       NAVBAR
+       ──────────────────────────────────────────── */
+    #navbar {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(253,250,249,.94);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(232,160,168,.15);
+      padding: 0 48px;
+      height: 68px;
+      display: flex; align-items: center; gap: 40px;
+      transition: box-shadow var(--tr);
+    }
+    #navbar.scrolled { box-shadow: 0 4px 24px rgba(180,84,95,.08); }
+
+    .brand {
+      font-family: var(--serif);
+      font-size: 20px; font-weight: 700;
+      color: var(--text); line-height: 1;
+      display: flex; flex-direction: column;
+    }
+    .brand-dot { color: var(--pink); }
+    .brand small {
+      font-family: var(--sans); font-size: 9px;
+      font-weight: 300; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--text-light);
+      margin-top: 2px;
+    }
+
+    .nav-links { display: flex; gap: 32px; flex: 1; justify-content: center; }
+    .nav-links a {
+      font-size: 13px; letter-spacing: .06em;
+      color: var(--text-mid);
+      position: relative; padding-bottom: 2px;
+      transition: color var(--tr);
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -2px; left: 0;
+      width: 0; height: 1px; background: var(--rose);
+      transition: width var(--tr);
+    }
+    .nav-links a:hover { color: var(--rose); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-actions { display: flex; align-items: center; gap: 8px; }
+
+    .icon-btn {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--tr);
+    }
+    .icon-btn:hover { background: var(--pink-light); }
+    .icon-btn svg { width: 17px; height: 17px; stroke: var(--text-mid); fill: none; stroke-width: 1.5; }
+
+    .btn-cta {
+      background: var(--rose); color: var(--white);
+      border: none; border-radius: 40px;
+      padding: 10px 22px; font-size: 13px;
+      letter-spacing: .04em; cursor: pointer;
+      display: flex; align-items: center; gap: 8px;
+      transition: background var(--tr), transform var(--tr), box-shadow var(--tr);
+    }
+    .btn-cta:hover {
+      background: var(--rose-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(180,84,95,.28);
+    }
+    .cart-count {
+      background: var(--white); color: var(--rose);
+      width: 20px; height: 20px; border-radius: 50%;
+      font-size: 11px; font-weight: 500;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .2s;
+    }
+    .cart-count.bump { transform: scale(1.4); }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--text); border-radius: 2px;
+      transition: transform var(--tr), opacity var(--tr);
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* SEARCH OVERLAY */
+    .search-overlay {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+      background: var(--white);
+      padding: 20px 48px;
+      display: flex; align-items: center; gap: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.1);
+      transform: translateY(-100%);
+      transition: transform .35s cubic-bezier(.16,1,.3,1);
+    }
+    .search-overlay.open { transform: translateY(0); }
+    .search-overlay input {
+      flex: 1; border: none; outline: none;
+      font-family: var(--serif); font-size: 22px;
+      color: var(--text); background: none;
+    }
+    .search-overlay input::placeholder { color: var(--text-light); }
+    #searchClose {
+      background: none; border: none; font-size: 20px;
+      cursor: pointer; color: var(--text-light);
+      transition: color var(--tr);
+    }
+    #searchClose:hover { color: var(--rose); }
+
+    /* MOBILE MENU */
+    .mobile-menu {
+      position: fixed; inset: 0; z-index: 190;
+      background: rgba(253,240,242,.97); backdrop-filter: blur(14px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s;
+    }
+    .mobile-menu.open { opacity: 1; pointer-events: all; }
+    .mobile-menu ul { list-style: none; text-align: center; }
+    .mobile-menu ul li { margin-bottom: 24px; }
+    .mobile-menu ul li a {
+      font-family: var(--serif); font-size: 34px;
+      font-weight: 400; color: var(--text);
+      transition: color var(--tr);
+    }
+    .mobile-menu ul li a:hover { color: var(--rose); }
+
+    /* ────────────────────────────────────────────
+       HERO
+       ──────────────────────────────────────────── */
+    .hero {
+      position: relative; min-height: 90vh;
+      display: flex; align-items: center;
+      overflow: hidden;
+      background: linear-gradient(135deg, #fae8eb 0%, #f5d5da 40%, #edd0cc 70%, #e8c4b8 100%);
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 70% at 70% 40%, rgba(255,220,225,.7) 0%, transparent 70%);
+    }
+    .hero-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 50% 60% at 20% 80%, rgba(210,150,160,.2) 0%, transparent 60%);
+    }
+
+    .hero-shape {
+      position: absolute; border-radius: 50%;
+      background: rgba(255,255,255,.22);
+      backdrop-filter: blur(4px);
+      animation: floatShape 6s ease-in-out infinite;
+    }
+    .shape-1 { width: 80px; height: 80px; top: 15%; left: 8%;  animation-delay: 0s; }
+    .shape-2 { width: 50px; height: 50px; top: 60%; left: 15%; animation-delay: 1.2s; }
+    .shape-3 { width: 36px; height: 36px; top: 25%; left: 55%; animation-delay: 2s; }
+    .shape-4 { width: 64px; height: 64px; top: 70%; right: 12%; animation-delay: .8s; }
+    .shape-5 { width: 28px; height: 28px; top: 10%; right: 30%; animation-delay: 1.8s; }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 80px; max-width: 560px;
+    }
+    .hero-eyebrow {
+      font-size: 12px; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--rose); margin-bottom: 18px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: inline-block;
+      width: 28px; height: 1px; background: var(--rose);
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(44px, 6vw, 72px);
+      font-weight: 700; line-height: 1.1;
+      color: var(--text); margin-bottom: 36px;
+    }
+    .btn-hero {
+      display: inline-block;
+      background: var(--rose); color: var(--white);
+      padding: 16px 40px; border-radius: 40px;
+      font-size: 14px; letter-spacing: .08em;
+      transition: background var(--tr), transform var(--tr), box-shadow var(--tr);
+    }
+    .btn-hero:hover {
+      background: var(--rose-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(180,84,95,.32);
+    }
+
+    .hero-products {
+      position: absolute; right: 6%; bottom: 0; top: 0;
+      display: flex; align-items: flex-end;
+      gap: 16px; z-index: 2;
+    }
+    .hp {
+      border-radius: 12px 12px 6px 6px; position: relative;
+      transition: transform .5s cubic-bezier(.16,1,.3,1);
+    }
+    .hp:hover { transform: translateY(-16px); }
+    .hp::before {
+      content: ''; position: absolute;
+      top: -22px; left: 50%; transform: translateX(-50%);
+      width: 14px; height: 26px;
+      background: rgba(200,130,120,.5);
+      border-radius: 4px 4px 0 0;
+    }
+    .hp1 { width: 64px; height: 200px; background: linear-gradient(160deg, #f8d0d8, #e8a0a8); }
+    .hp2 { width: 56px; height: 240px; background: linear-gradient(160deg, #f2c8d0, #d8909a); }
+    .hp3 { width: 64px; height: 180px; background: linear-gradient(160deg, #f0dcd8, #dab0a8); }
+    .hp4 { width: 52px; height: 220px; background: linear-gradient(160deg, #fce0d8, #e8b090); }
+
+    /* ────────────────────────────────────────────
+       FEATURED PRODUCTS
+       ──────────────────────────────────────────── */
+    .featured { padding: 80px 48px; }
+
+    .section-title {
+      font-family: var(--serif); font-size: clamp(26px, 3vw, 36px);
+      font-weight: 400; text-align: center;
+      margin-bottom: 48px; color: var(--text);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+    }
+
+    .product-card {
+      background: var(--white); border-radius: 16px; overflow: hidden;
+      border: 1px solid rgba(232,160,168,.12);
+      transition: transform var(--tr), box-shadow var(--tr);
+      cursor: pointer;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(180,84,95,.12);
+    }
+
+    .card-img {
+      aspect-ratio: 1 / 1.1;
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .4s ease;
+    }
+    .pink-bg  { background: linear-gradient(145deg, #fce8ec, #f5c4cc); }
+    .blush-bg { background: linear-gradient(145deg, #fde0e4, #f0bec4); }
+    .nude-bg  { background: linear-gradient(145deg, #f5e8e0, #ead4c8); }
+    .peach-bg { background: linear-gradient(145deg, #feeae0, #f5ccb8); }
+    .rose-bg  { background: linear-gradient(145deg, #fcdee0, #f0b4ba); }
+
+    /* Product shape illustrations */
+    .prod-shape { position: absolute; border-radius: 8px; }
+
+    .lipstick {
+      width: 18px; height: 60px;
+      background: linear-gradient(180deg, #8a3040, #c05068);
+      left: 35%; top: 20%; border-radius: 4px 4px 2px 2px;
+    }
+    .lipstick::before {
+      content: ''; position: absolute; top: -8px; left: 0; right: 0;
+      height: 12px; background: linear-gradient(180deg, #d06878, #a04050);
+      border-radius: 2px 2px 0 0;
+    }
+    .serum-sm {
+      width: 14px; height: 48px;
+      background: linear-gradient(160deg, #e8c0a0, #d09878);
+      right: 28%; top: 30%; border-radius: 6px;
+    }
+    .foundation-bottle {
+      width: 44px; height: 100px;
+      background: linear-gradient(160deg, #f0c8d0, #d89aaa);
+      border-radius: 8px 8px 6px 6px;
+    }
+    .foundation-bottle::before {
+      content: ''; position: absolute;
+      top: -14px; left: 50%; transform: translateX(-50%);
+      width: 18px; height: 18px;
+      background: linear-gradient(180deg, #c09898, #a07878);
+      border-radius: 4px 4px 0 0;
+    }
+    .bronzer-compact {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: radial-gradient(circle at 40% 35%, #e8c890, #c8a060);
+      box-shadow: 0 4px 16px rgba(0,0,0,.12);
+    }
+    .powder-compact {
+      width: 80px; height: 80px; border-radius: 12px;
+      background: linear-gradient(145deg, #f8d8c8, #e0b090);
+      box-shadow: 0 4px 16px rgba(0,0,0,.1);
+    }
+    .powder-compact::after {
+      content: ''; position: absolute; inset: 8px; border-radius: 8px;
+      background: radial-gradient(circle, #f8e8d8, #e8c8b0);
+      border: 1px solid rgba(255,255,255,.5);
+    }
+    .model-face {
+      width: 80px; height: 100px;
+      background: radial-gradient(circle at 45% 40%, #f8d8c8, #e0a888);
+      border-radius: 50% 50% 45% 45%; position: relative;
+    }
+    .model-face::before {
+      content: ''; position: absolute; top: 30%; left: 20%;
+      width: 60%; height: 4px; background: rgba(120,50,60,.25); border-radius: 2px;
+    }
+    .model-face::after {
+      content: ''; position: absolute; bottom: 20%; left: 30%; right: 30%;
+      height: 8px; background: rgba(200,80,100,.3); border-radius: 4px;
+    }
+
+    .wishlist-btn {
+      position: absolute; top: 10px; right: 10px;
+      width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(255,255,255,.7);
+      border: none; cursor: pointer;
+      font-size: 14px; color: var(--rose);
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--tr), transform var(--tr);
+    }
+    .wishlist-btn:hover, .wishlist-btn.active {
+      background: var(--rose); color: var(--white); transform: scale(1.15);
+    }
+
+    .card-body { padding: 16px; }
+    .card-body h3 { font-family: var(--serif); font-size: 14px; font-weight: 400; margin-bottom: 4px; }
+    .card-body p  { font-size: 11px; color: var(--text-light); margin-bottom: 12px; }
+    .card-footer  { display: flex; align-items: center; justify-content: space-between; }
+    .price { font-size: 13px; font-weight: 500; color: var(--rose-dark); }
+    .add-btn {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--pink-light); border: none;
+      font-size: 18px; color: var(--rose-dark);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; line-height: 1;
+      transition: background var(--tr), transform var(--tr);
+    }
+    .add-btn:hover { background: var(--rose); color: var(--white); transform: rotate(90deg) scale(1.1); }
+
+    /* ────────────────────────────────────────────
+       SALE BANNER
+       ──────────────────────────────────────────── */
+    .sale-banner {
+      background: var(--pink-pale);
+      padding: 80px 80px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: center;
+    }
+    .sale-left { max-width: 480px; }
+    .sale-tag {
+      font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--rose); margin-bottom: 16px;
+    }
+    .sale-left h2 {
+      font-family: var(--serif); font-size: clamp(32px, 4vw, 52px);
+      font-weight: 700; line-height: 1.15; margin-bottom: 20px;
+    }
+    .sale-left h2 em { color: var(--rose); font-style: italic; }
+    .sale-desc {
+      font-size: 14px; line-height: 1.8;
+      color: var(--text-mid); margin-bottom: 20px; max-width: 380px;
+    }
+    .sale-stars { font-size: 13px; color: var(--gold); margin-bottom: 28px; }
+    .sale-stars span { color: var(--text-light); font-size: 12px; }
+
+    /* countdown timer */
+    .sale-timer { margin-bottom: 24px; }
+    .timer-label {
+      font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--text-light); display: block; margin-bottom: 10px;
+    }
+    .timer-blocks { display: flex; gap: 10px; }
+    .tblock {
+      background: var(--white); border-radius: 10px;
+      padding: 10px 16px; text-align: center; min-width: 64px;
+      box-shadow: 0 2px 12px rgba(180,84,95,.1);
+    }
+    .tblock span {
+      font-family: var(--serif); font-size: 26px; font-weight: 700;
+      color: var(--rose-dark); display: block;
+    }
+    .tblock small {
+      font-size: 10px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--text-light);
+    }
+
+    .sale-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-sale {
+      padding: 14px 32px; border-radius: 40px;
+      background: var(--rose); color: var(--white);
+      font-size: 13px; letter-spacing: .06em;
+      border: none; cursor: pointer;
+      transition: background var(--tr), transform var(--tr);
+    }
+    .btn-sale:hover { background: var(--rose-dark); transform: translateY(-2px); }
+    .btn-sale-outline {
+      padding: 13px 28px; border-radius: 40px;
+      border: 1.5px solid var(--rose); color: var(--rose);
+      font-size: 13px; letter-spacing: .06em;
+      background: none; cursor: pointer;
+      transition: background var(--tr), color var(--tr);
+    }
+    .btn-sale-outline:hover { background: var(--rose); color: var(--white); }
+
+    .sale-right {
+      display: flex; gap: 14px;
+      align-items: flex-end; justify-content: center;
+    }
+    .sale-prod {
+      border-radius: 10px 10px 6px 6px; position: relative;
+      transition: transform .4s cubic-bezier(.16,1,.3,1);
+    }
+    .sale-prod:hover { transform: translateY(-10px); }
+    .sale-prod::before {
+      content: ''; position: absolute;
+      top: -16px; left: 50%; transform: translateX(-50%);
+      width: 12px; height: 20px;
+      background: rgba(180,100,110,.4); border-radius: 3px 3px 0 0;
+    }
+    .sp1 { width: 58px; height: 160px; background: linear-gradient(160deg, #f8c8d0, #e89aa8); }
+    .sp2 { width: 52px; height: 200px; background: linear-gradient(160deg, #f5d0d8, #e0a0b0); }
+    .sp3 { width: 66px; height: 180px; background: linear-gradient(160deg, #fce8e0, #e8b8a0); }
+    .sp4 { width: 50px; height: 150px; background: linear-gradient(160deg, #f8dce0, #e0b4b8); }
+
+    /* ────────────────────────────────────────────
+       BLOG SECTION
+       ──────────────────────────────────────────── */
+    .blog-section { padding: 80px 48px; }
+    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+
+    .blog-card {
+      border-radius: 16px; overflow: hidden;
+      border: 1px solid rgba(232,160,168,.12);
+      background: var(--white);
+      transition: transform var(--tr), box-shadow var(--tr);
+    }
+    .blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 36px rgba(180,84,95,.1);
+    }
+    .blog-img { aspect-ratio: 4/3; position: relative; overflow: hidden; }
+    .bi-1 { background: linear-gradient(145deg, #f0c8cc, #d89098); }
+    .bi-2 { background: linear-gradient(145deg, #f8d8dc, #e8a8b4); }
+    .bi-3 { background: linear-gradient(145deg, #fae0d8, #e8b8a8); }
+    .bi-1::before, .bi-2::before, .bi-3::before {
+      content: ''; position: absolute;
+      width: 120px; height: 120px; border-radius: 50%;
+      background: rgba(255,255,255,.15); bottom: -20px; right: -20px;
+    }
+    .bi-1::after, .bi-2::after, .bi-3::after {
+      content: ''; position: absolute;
+      width: 70px; height: 70px; border-radius: 50%;
+      background: rgba(255,255,255,.1); top: 10px; left: 10px;
+    }
+    .blog-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.15), transparent 50%);
+    }
+    .blog-cat {
+      position: absolute; top: 14px; left: 14px; z-index: 2;
+      background: var(--white); color: var(--rose-dark);
+      font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 20px;
+    }
+    .blog-body { padding: 24px; }
+    .blog-body h3 { font-family: var(--serif); font-size: 18px; font-weight: 400; margin-bottom: 10px; }
+    .blog-body p  { font-size: 13px; line-height: 1.7; color: var(--text-mid); margin-bottom: 16px; }
+    .blog-link { font-size: 12px; letter-spacing: .08em; color: var(--rose); font-weight: 500; transition: color var(--tr); }
+    .blog-link:hover { color: var(--rose-dark); }
+
+    /* ────────────────────────────────────────────
+       FOOTER
+       ──────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid rgba(232,160,168,.2);
+      padding: 40px 48px 28px;
+      background: var(--white);
+    }
+    .footer-top { display: flex; align-items: center; gap: 48px; flex-wrap: wrap; margin-bottom: 28px; }
+    .footer-col { display: flex; align-items: center; gap: 12px; }
+    .footer-icon { width: 28px; height: 28px; fill: none; stroke: var(--text-mid); stroke-width: 1.5; flex-shrink: 0; }
+    .footer-icon.teal { stroke: #1da1f2; }
+    .footer-social-name { font-size: 13px; font-weight: 500; }
+    .footer-social-sub  { font-size: 11px; color: var(--text-light); }
+    .footer-socials { margin-left: auto; display: flex; gap: 8px; }
+    .social-circle {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--pink-pale);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; color: var(--text-mid);
+      transition: background var(--tr), color var(--tr), transform var(--tr);
+    }
+    .social-circle:hover { background: var(--rose); color: var(--white); transform: scale(1.1); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px; font-size: 12px; color: var(--text-light);
+      border-top: 1px solid rgba(232,160,168,.15); padding-top: 20px;
+    }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { color: var(--text-light); transition: color var(--tr); }
+    .footer-links a:hover { color: var(--rose); }
+
+    /* ────────────────────────────────────────────
+       CART DRAWER
+       ──────────────────────────────────────────── */
+    .drawer-overlay {
+      position: fixed; inset: 0; z-index: 290;
+      background: rgba(42,31,34,.4);
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s;
+    }
+    .drawer-overlay.open { opacity: 1; pointer-events: all; }
+
+    .cart-drawer {
+      position: fixed; top: 0; right: -420px; bottom: 0;
+      width: 400px; z-index: 300;
+      background: var(--white);
+      box-shadow: -8px 0 48px rgba(42,31,34,.12);
+      display: flex; flex-direction: column;
+      transition: right .4s cubic-bezier(.16,1,.3,1);
+    }
+    .cart-drawer.open { right: 0; }
+    .drawer-header {
+      padding: 24px; border-bottom: 1px solid rgba(232,160,168,.2);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .drawer-header h3 { font-family: var(--serif); font-size: 20px; font-weight: 400; }
+    #drawerClose {
+      background: none; border: none; font-size: 18px;
+      cursor: pointer; color: var(--text-light); transition: color var(--tr);
+    }
+    #drawerClose:hover { color: var(--rose); }
+    .drawer-items { flex: 1; overflow-y: auto; padding: 20px 24px; }
+    .empty-cart {
+      text-align: center; color: var(--text-light);
+      margin-top: 60px; font-style: italic; font-family: var(--serif);
+    }
+    .drawer-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 12px 0; border-bottom: 1px solid rgba(232,160,168,.12);
+    }
+    .drawer-item-thumb {
+      width: 48px; height: 48px; border-radius: 10px;
+      background: var(--pink-light); flex-shrink: 0;
+    }
+    .drawer-item-info { flex: 1; }
+    .drawer-item-name  { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+    .drawer-item-price { font-size: 12px; color: var(--rose-dark); }
+    .drawer-item-remove {
+      background: none; border: none; cursor: pointer;
+      color: var(--text-light); font-size: 16px; transition: color var(--tr);
+    }
+    .drawer-item-remove:hover { color: var(--rose); }
+    .drawer-footer { padding: 20px 24px; border-top: 1px solid rgba(232,160,168,.2); }
+    .drawer-total {
+      font-size: 15px; margin-bottom: 16px;
+      display: flex; justify-content: space-between;
+    }
+    .drawer-total strong { color: var(--rose-dark); font-size: 18px; }
+    .btn-checkout {
+      width: 100%; padding: 15px;
+      background: var(--rose); color: var(--white);
+      border: none; border-radius: 40px;
+      font-size: 14px; letter-spacing: .06em; cursor: pointer;
+      transition: background var(--tr), transform var(--tr);
+    }
+    .btn-checkout:hover { background: var(--rose-dark); transform: translateY(-1px); }
+
+    /* ────────────────────────────────────────────
+       TOAST
+       ──────────────────────────────────────────── */
+    .toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--text); color: var(--white);
+      padding: 13px 28px; border-radius: 40px;
+      font-size: 13px; z-index: 999;
+      opacity: 0; pointer-events: none;
+      transition: transform .4s cubic-bezier(.16,1,.3,1), opacity .3s;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ────────────────────────────────────────────
+       SCROLL REVEAL
+       ──────────────────────────────────────────── */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .75s ease, transform .75s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal.visible       { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .32s; }
+
+    /* ────────────────────────────────────────────
+       KEYFRAMES
+       ──────────────────────────────────────────── */
+    @keyframes floatShape {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50%       { transform: translateY(-16px) rotate(5deg); }
+    }
+
+    /* ────────────────────────────────────────────
+       RESPONSIVE
+       ──────────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .product-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .product-grid   { grid-template-columns: repeat(2, 1fr); }
+      .sale-banner    { grid-template-columns: 1fr; padding: 60px 40px; }
+      .blog-grid      { grid-template-columns: 1fr; }
+      .hero-products  { display: none; }
+    }
+    @media (max-width: 700px) {
+      #navbar         { padding: 0 20px; }
+      .nav-links      { display: none; }
+      .hamburger      { display: flex; }
+      .featured       { padding: 60px 20px; }
+      .blog-section   { padding: 60px 20px; }
+      .hero-content   { padding: 0 28px; }
+      .footer-top     { gap: 24px; }
+      .footer-socials { margin-left: 0; }
+      .cart-drawer    { width: 100%; right: -100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announce-bar">
+    <span>🌸 Free shipping on orders over Rp 300.000</span>
+    <span class="sep">|</span>
+    <span>✨ New Spring Collection is here</span>
+    <span class="sep">|</span>
+    <span>💖 Subscribe &amp; Save 15%</span>
+  </div>
+
+  <!-- NAVBAR -->
+  <header id="navbar">
+    <a href="#" class="brand">
+      BEAUTY<span class="brand-dot">·</span>
+      <small>your beauty</small>
+    </a>
+    <nav class="nav-links">
+      <a href="#">Skincare</a>
+      <a href="#">Body Care</a>
+      <a href="#">Balance</a>
+      <a href="#">Makeup</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="Search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
+      <button class="icon-btn" aria-label="Account">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </button>
+      <button class="btn-cta" id="cartBtn">
+        Cart <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- SEARCH OVERLAY -->
+  <div class="search-overlay" id="searchOverlay">
+    <input type="text" id="searchInput" placeholder="Search products…" autocomplete="off" />
+    <button id="searchClose">✕</button>
+  </div>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#">Skincare</a></li>
+      <li><a href="#">Body Care</a></li>
+      <li><a href="#">Balance</a></li>
+      <li><a href="#">Makeup</a></li>
+    </ul>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-shape shape-1"></div>
+    <div class="hero-shape shape-2"></div>
+    <div class="hero-shape shape-3"></div>
+    <div class="hero-shape shape-4"></div>
+    <div class="hero-shape shape-5"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow reveal">New Spring Collection</p>
+      <h1 class="hero-title reveal reveal-delay-1">Glow like<br>never before!</h1>
+      <a href="#featured" class="btn-hero reveal reveal-delay-2">Shop Now</a>
+    </div>
+    <div class="hero-products reveal reveal-delay-3">
+      <div class="hp hp1"></div>
+      <div class="hp hp2"></div>
+      <div class="hp hp3"></div>
+      <div class="hp hp4"></div>
+    </div>
+  </section>
+
+  <!-- FEATURED PRODUCTS -->
+  <section class="featured" id="featured">
+    <h2 class="section-title reveal">Featured Product</h2>
+    <div class="product-grid">
+
+      <div class="product-card reveal">
+        <div class="card-img pink-bg">
+          <div class="prod-shape lipstick"></div>
+          <div class="prod-shape serum-sm"></div>
+          <button class="wishlist-btn" data-product="Lip Essentials">♡</button>
+        </div>
+        <div class="card-body">
+          <h3>Lip Essentials</h3>
+          <p>Bold Make-up</p>
+          <div class="card-footer">
+            <span class="price">Rp 185.000</span>
+            <button class="add-btn" data-product="Lip Essentials" data-price="185000">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card reveal reveal-delay-1">
+        <div class="card-img blush-bg">
+          <div class="prod-shape foundation-bottle"></div>
+          <button class="wishlist-btn" data-product="Foundation No. 02">♡</button>
+        </div>
+        <div class="card-body">
+          <h3>Foundation No. 02</h3>
+          <p>Daily Make-up</p>
+          <div class="card-footer">
+            <span class="price">Rp 265.000</span>
+            <button class="add-btn" data-product="Foundation No. 02" data-price="265000">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card reveal reveal-delay-2">
+        <div class="card-img nude-bg">
+          <div class="prod-shape bronzer-compact"></div>
+          <button class="wishlist-btn" data-product="Bronzer Mides">♡</button>
+        </div>
+        <div class="card-body">
+          <h3>Bronzer Mides</h3>
+          <p>Glow Make-up</p>
+          <div class="card-footer">
+            <span class="price">Rp 220.000</span>
+            <button class="add-btn" data-product="Bronzer Mides" data-price="220000">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card reveal reveal-delay-3">
+        <div class="card-img peach-bg">
+          <div class="prod-shape powder-compact"></div>
+          <button class="wishlist-btn" data-product="Peche Ailes">♡</button>
+        </div>
+        <div class="card-body">
+          <h3>Peche Ailes</h3>
+          <p>Edition Make-up</p>
+          <div class="card-footer">
+            <span class="price">Rp 310.000</span>
+            <button class="add-btn" data-product="Peche Ailes" data-price="310000">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card reveal reveal-delay-2">
+        <div class="card-img rose-bg">
+          <div class="model-face"></div>
+          <button class="wishlist-btn" data-product="Sani Naire">♡</button>
+        </div>
+        <div class="card-body">
+          <h3>Sani Naire</h3>
+          <p>Shop Make-up</p>
+          <div class="card-footer">
+            <span class="price">Rp 195.000</span>
+            <button class="add-btn" data-product="Sani Naire" data-price="195000">+</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SALE BANNER -->
+  <section class="sale-banner">
+    <div class="sale-left reveal">
+      <p class="sale-tag">Limited Time Offer</p>
+      <h2>Spring Beauty Sale<br>Up to <em>40% Off</em></h2>
+      <p class="sale-desc">Score premium beauty products at unbeatable prices. Curated collections, exclusive deals — only for this season.</p>
+      <div class="sale-stars">★★★★★ <span>4.9/5 · 2,800+ reviews</span></div>
+      <!-- Timer injected by JS -->
+      <div class="sale-timer">
+        <span class="timer-label">Sale ends in:</span>
+        <div class="timer-blocks">
+          <div class="tblock"><span id="tHours">00</span><small>hrs</small></div>
+          <div class="tblock"><span id="tMins">00</span><small>min</small></div>
+          <div class="tblock"><span id="tSecs">00</span><small>sec</small></div>
+        </div>
+      </div>
+      <div class="sale-btns">
+        <a href="#" class="btn-sale">Shop Now</a>
+        <a href="#" class="btn-sale-outline">Find Beauty Products</a>
+      </div>
+    </div>
+    <div class="sale-right reveal reveal-delay-2">
+      <div class="sale-prod sp1"></div>
+      <div class="sale-prod sp2"></div>
+      <div class="sale-prod sp3"></div>
+      <div class="sale-prod sp4"></div>
+    </div>
+  </section>
+
+  <!-- BLOG / CATEGORY -->
+  <section class="blog-section">
+    <div class="blog-grid">
+      <div class="blog-card reveal">
+        <div class="blog-img bi-1">
+          <div class="blog-overlay"></div>
+          <span class="blog-cat">Skincare</span>
+        </div>
+        <div class="blog-body">
+          <h3>Nude Classics</h3>
+          <p>Explore our timeless nude collection crafted with premium natural botanicals for radiant skin.</p>
+          <a href="#" class="blog-link">Learn more →</a>
+        </div>
+      </div>
+      <div class="blog-card reveal reveal-delay-1">
+        <div class="blog-img bi-2">
+          <div class="blog-overlay"></div>
+          <span class="blog-cat">Trending</span>
+        </div>
+        <div class="blog-body">
+          <h3>Nano Glamours</h3>
+          <p>Lightweight, buildable glamour for every occasion — powered by clean beauty science.</p>
+          <a href="#" class="blog-link">Learn more →</a>
+        </div>
+      </div>
+      <div class="blog-card reveal reveal-delay-2">
+        <div class="blog-img bi-3">
+          <div class="blog-overlay"></div>
+          <span class="blog-cat">Beauty</span>
+        </div>
+        <div class="blog-body">
+          <h3>Beauty Cosmetics</h3>
+          <p>Professional-grade formulas designed for real everyday beauty — effortless and effective.</p>
+          <a href="#" class="blog-link">Learn more →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-col">
+        <svg class="footer-icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        <div><p class="footer-social-name">@beautystore</p><p class="footer-social-sub">Instagram Feed</p></div>
+      </div>
+      <div class="footer-col">
+        <svg class="footer-icon" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        <div><p class="footer-social-name">@beautystore</p><p class="footer-social-sub">Facebook Page</p></div>
+      </div>
+      <div class="footer-col">
+        <svg class="footer-icon teal" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+        <div><p class="footer-social-name">@beautystore</p><p class="footer-social-sub">Following</p></div>
+      </div>
+      <div class="footer-socials">
+        <a href="#" class="social-circle">f</a>
+        <a href="#" class="social-circle">𝕏</a>
+        <a href="#" class="social-circle">◎</a>
+        <a href="#" class="social-circle">𝒫</a>
+        <a href="#" class="social-circle">▶</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Beauty Store. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART DRAWER -->
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="drawer-header">
+      <h3>Your Cart</h3>
+      <button id="drawerClose">✕</button>
+    </div>
+    <div class="drawer-items" id="drawerItems">
+      <p class="empty-cart">Your cart is empty.</p>
+    </div>
+    <div class="drawer-footer">
+      <div class="drawer-total">Total: <strong id="drawerTotal">Rp 0</strong></div>
+      <button class="btn-checkout">Checkout</button>
+    </div>
+  </div>
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ============================================================
+       JAVASCRIPT
+       ============================================================ -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      /* 1. NAVBAR SCROLL STATE */
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 50);
+      }, { passive: true });
+
+      /* 2. SCROLL REVEAL */
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+      /* 3. SEARCH OVERLAY */
+      const searchBtn     = document.getElementById('searchBtn');
+      const searchOverlay = document.getElementById('searchOverlay');
+      const searchClose   = document.getElementById('searchClose');
+      const searchInput   = document.getElementById('searchInput');
+
+      searchBtn.addEventListener('click', () => {
+        searchOverlay.classList.add('open');
+        setTimeout(() => searchInput.focus(), 200);
+      });
+      searchClose.addEventListener('click', () => {
+        searchOverlay.classList.remove('open');
+        searchInput.value = '';
+      });
+
+      /* 4. HAMBURGER / MOBILE MENU */
+      const hamburger  = document.getElementById('hamburger');
+      const mobileMenu = document.getElementById('mobileMenu');
+      let menuOpen = false;
+      hamburger.addEventListener('click', () => {
+        menuOpen = !menuOpen;
+        hamburger.classList.toggle('open', menuOpen);
+        mobileMenu.classList.toggle('open', menuOpen);
+        document.body.style.overflow = menuOpen ? 'hidden' : '';
+      });
+
+      /* ESC key closes everything */
+      document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape') return;
+        searchOverlay.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('open');
+        menuOpen = false;
+        document.body.style.overflow = '';
+      });
+
+      /* 5. CART SYSTEM */
+      const cartDrawer    = document.getElementById('cartDrawer');
+      const drawerOverlay = document.getElementById('drawerOverlay');
+      const drawerClose   = document.getElementById('drawerClose');
+      const drawerItems   = document.getElementById('drawerItems');
+      const drawerTotal   = document.getElementById('drawerTotal');
+      const cartCountEl   = document.getElementById('cartCount');
+      const cartBtn       = document.getElementById('cartBtn');
+      let cart = [];
+
+      const openCart  = () => { cartDrawer.classList.add('open'); drawerOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; };
+      const closeCart = () => { cartDrawer.classList.remove('open'); drawerOverlay.classList.remove('open'); document.body.style.overflow = ''; };
+
+      cartBtn.addEventListener('click', openCart);
+      drawerClose.addEventListener('click', closeCart);
+      drawerOverlay.addEventListener('click', closeCart);
+
+      function renderCart() {
+        cartCountEl.textContent = cart.length;
+        cartCountEl.classList.add('bump');
+        setTimeout(() => cartCountEl.classList.remove('bump'), 250);
+
+        if (cart.length === 0) {
+          drawerItems.innerHTML = '<p class="empty-cart">Your cart is empty.</p>';
+          drawerTotal.textContent = 'Rp 0';
+          return;
+        }
+        const total = cart.reduce((s, i) => s + i.price, 0);
+        drawerTotal.textContent = 'Rp ' + total.toLocaleString('id-ID');
+        drawerItems.innerHTML = cart.map((item, i) => `
+          <div class="drawer-item">
+            <div class="drawer-item-thumb"></div>
+            <div class="drawer-item-info">
+              <div class="drawer-item-name">${item.name}</div>
+              <div class="drawer-item-price">Rp ${item.price.toLocaleString('id-ID')}</div>
+            </div>
+            <button class="drawer-item-remove" data-index="${i}">✕</button>
+          </div>`).join('');
+        drawerItems.querySelectorAll('.drawer-item-remove').forEach(btn => {
+          btn.addEventListener('click', () => { cart.splice(+btn.dataset.index, 1); renderCart(); });
+        });
+      }
+
+      function addToCart(name, price) {
+        cart.push({ name, price: +price });
+        renderCart();
+        showToast(`✓  ${name} added to cart`);
+      }
+
+      document.querySelectorAll('.add-btn').forEach(btn => {
+        btn.addEventListener('click', () => addToCart(btn.dataset.product, btn.dataset.price));
+      });
+
+      /* 6. WISHLIST */
+      document.querySelectorAll('.wishlist-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const active = btn.classList.toggle('active');
+          btn.textContent = active ? '♥' : '♡';
+          if (active) showToast(`💖  ${btn.dataset.product} added to wishlist`);
+        });
+      });
+
+      /* 7. COUNTDOWN TIMER */
+      const endTime = Date.now() + (47 * 3600 + 23 * 60) * 1000;
+      function updateTimer() {
+        const d = Math.max(0, endTime - Date.now());
+        document.getElementById('tHours').textContent = String(Math.floor(d / 3600000)).padStart(2, '0');
+        document.getElementById('tMins').textContent  = String(Math.floor((d % 3600000) / 60000)).padStart(2, '0');
+        document.getElementById('tSecs').textContent  = String(Math.floor((d % 60000) / 1000)).padStart(2, '0');
+      }
+      updateTimer();
+      setInterval(updateTimer, 1000);
+
+      /* 8. ANNOUNCE BAR ROTATION */
+      const announceBar = document.querySelector('.announce-bar');
+      const messages = [
+        '🌸 Free shipping on orders over Rp 300.000',
+        '✨ New Spring Collection is here',
+        '💖 Subscribe &amp; Save 15%',
+        '🎁 Gift wrapping available at checkout',
+      ];
+      let msgIdx = 0;
+      setInterval(() => {
+        msgIdx = (msgIdx + 1) % messages.length;
+        announceBar.style.opacity = '0';
+        setTimeout(() => { announceBar.innerHTML = `<span>${messages[msgIdx]}</span>`; announceBar.style.opacity = '1'; }, 300);
+      }, 3500);
+
+      /* 9. PRODUCT CARD IMAGE ZOOM */
+      document.querySelectorAll('.product-card').forEach(card => {
+        const img = card.querySelector('.card-img');
+        card.addEventListener('mouseenter', () => { img.style.transform = 'scale(1.04)'; });
+        card.addEventListener('mouseleave', () => { img.style.transform = 'scale(1)'; });
+      });
+
+      /* 10. TOAST */
+      const toast = document.getElementById('toast');
+      let toastTimer = null;
+      function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+      }
+
+    });
+  </script>
+
+</body>
+</html>

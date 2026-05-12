@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sage — Conscious Skincare</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --cream: #f5f0eb;
+    --warm-white: #faf8f5;
+    --sage: #7d9b76;
+    --sage-light: #b5c9b0;
+    --sage-dark: #4a6b44;
+    --brown: #8b6e52;
+    --amber: #c8956c;
+    --text: #2c2c2a;
+    --text-light: #6b6b68;
+    --serif: 'Cormorant Garamond', serif;
+    --sans: 'Jost', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--warm-white);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 24px; left: 50%; transform: translateX(-50%);
+    z-index: 100;
+    background: rgba(250,248,245,0.82);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(125,155,118,0.18);
+    border-radius: 60px;
+    padding: 14px 32px;
+    display: flex; align-items: center; gap: 40px;
+    animation: fadeDown .8s ease both;
+  }
+  nav .logo {
+    font-family: var(--serif); font-size: 22px; font-weight: 600;
+    color: var(--text); letter-spacing: .02em; text-decoration: none;
+  }
+  nav ul { list-style: none; display: flex; gap: 28px; }
+  nav ul li a {
+    font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--text-light); text-decoration: none; transition: color .2s;
+  }
+  nav ul li a:hover { color: var(--sage-dark); }
+  nav .cart {
+    width: 34px; height: 34px; border: 1px solid var(--sage-light);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: background .2s;
+  }
+  nav .cart:hover { background: var(--sage-light); }
+  nav .cart svg { width: 15px; height: 15px; stroke: var(--text); fill: none; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative; height: 100vh; overflow: hidden;
+    display: flex; align-items: flex-end; justify-content: center;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(160deg, #c9a98a 0%, #9e7f62 30%, #6b5240 60%, #3a2e25 100%);
+  }
+  .hero-bg::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 60% 30%, rgba(200,149,108,.3) 0%, transparent 70%);
+  }
+  /* Decorative skin texture overlay */
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: .4;
+  }
+  .hero-wordmark {
+    position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+    font-family: var(--serif); font-size: clamp(120px, 22vw, 260px); font-weight: 300;
+    color: rgba(255,255,255,0.92); letter-spacing: -.02em;
+    line-height: 1; pointer-events: none;
+    animation: heroReveal 1.2s cubic-bezier(.16,1,.3,1) .3s both;
+  }
+  .hero-scroll {
+    position: absolute; bottom: 32px; right: 40px;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    animation: fadeUp .8s ease 1.2s both;
+  }
+  .hero-scroll span {
+    font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+    color: rgba(255,255,255,.6); writing-mode: vertical-rl;
+  }
+  .scroll-line {
+    width: 1px; height: 48px;
+    background: linear-gradient(to bottom, rgba(255,255,255,.5), transparent);
+    animation: scrollPulse 2s ease infinite;
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 100px 40px; max-width: 1200px; margin: 0 auto; }
+
+  /* ── PHILOSOPHY ── */
+  .philosophy {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+    padding-top: 120px;
+  }
+  .philosophy-text h2 {
+    font-family: var(--serif); font-size: clamp(32px, 4vw, 52px);
+    font-weight: 400; line-height: 1.15; margin-bottom: 24px;
+  }
+  .philosophy-text p {
+    font-size: 14px; line-height: 1.8; color: var(--text-light);
+    margin-bottom: 14px; max-width: 380px;
+  }
+  .btn-primary {
+    display: inline-block; margin-top: 20px;
+    background: var(--sage); color: #fff;
+    padding: 14px 32px; border-radius: 40px;
+    font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+    text-decoration: none; transition: background .25s, transform .2s;
+    border: none; cursor: pointer;
+  }
+  .btn-primary:hover { background: var(--sage-dark); transform: translateY(-1px); }
+
+  .product-jar {
+    position: relative; display: flex; justify-content: center; align-items: center;
+  }
+  .jar-circle {
+    width: min(420px, 90vw); height: min(420px, 90vw);
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #e8d5c0, #c4a07a 60%, #9a7455);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .jar-circle::before {
+    content: '';
+    position: absolute; top: -20%; right: -20%;
+    width: 60%; height: 60%; border-radius: 50%;
+    background: rgba(255,255,255,.12);
+  }
+  .jar-label {
+    font-family: var(--serif); font-size: 28px; font-weight: 600;
+    color: rgba(255,255,255,.9); letter-spacing: .04em;
+  }
+  .jar-lid {
+    position: absolute; top: 15%; left: 55%;
+    width: 90px; height: 28px; border-radius: 4px;
+    background: linear-gradient(180deg, #2a2520, #1a1510);
+    box-shadow: 0 4px 20px rgba(0,0,0,.3);
+    transform: rotate(-8deg);
+  }
+
+  /* ── NATURE STRIP ── */
+  .nature-strip {
+    background: var(--cream);
+    padding: 100px 40px;
+    max-width: 100%;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .nature-images {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3px;
+  }
+  .img-placeholder {
+    aspect-ratio: 3/4;
+    background: linear-gradient(145deg, #d4c4b0, #b8a08a);
+    position: relative; overflow: hidden;
+    display: flex; align-items: flex-end; padding: 20px;
+  }
+  .img-placeholder:nth-child(2) {
+    background: linear-gradient(145deg, #c8b89e, #a89070);
+  }
+  .img-placeholder::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,.2), transparent 50%);
+  }
+  .img-placeholder .product-name {
+    font-family: var(--serif); font-size: 24px; font-weight: 300;
+    color: rgba(255,255,255,.9); position: relative; z-index: 1;
+  }
+  /* Bottle shape decoration */
+  .bottle-shape {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 60px; height: 160px;
+    background: rgba(255,255,255,.15);
+    border-radius: 8px 8px 4px 4px;
+    backdrop-filter: blur(4px);
+  }
+  .bottle-shape::before {
+    content: '';
+    position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+    width: 20px; height: 24px;
+    background: rgba(255,255,255,.2);
+    border-radius: 4px 4px 0 0;
+  }
+
+  .nature-text {
+    padding: 60px 80px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .nature-text h2 {
+    font-family: var(--serif); font-size: clamp(40px, 5vw, 64px);
+    font-weight: 300; line-height: 1.1; margin-bottom: 28px;
+  }
+  .nature-text p {
+    font-size: 14px; line-height: 1.8; color: var(--text-light);
+    margin-bottom: 14px; max-width: 340px;
+  }
+  .ingredients-tags {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px;
+  }
+  .tag {
+    padding: 7px 16px; border: 1px solid var(--sage-light);
+    border-radius: 20px; font-size: 11px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--sage-dark);
+    transition: background .2s;
+  }
+  .tag:hover { background: var(--sage-light); }
+
+  /* ── ALL-IN-ONE ── */
+  .allinone {
+    position: relative; overflow: hidden;
+    background: var(--warm-white);
+    padding: 100px 40px;
+    max-width: 100%;
+  }
+  .allinone-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+  }
+  .allinone-text h2 {
+    font-family: var(--serif); font-size: clamp(36px, 4.5vw, 56px);
+    font-weight: 400; line-height: 1.15; margin-bottom: 16px;
+  }
+  .allinone-text .subtitle {
+    font-size: 14px; color: var(--text-light); margin-bottom: 24px;
+    max-width: 320px; line-height: 1.7;
+  }
+  .bg-word {
+    position: absolute; bottom: -40px; right: -20px;
+    font-family: var(--serif); font-size: clamp(100px, 18vw, 220px);
+    font-weight: 300; color: rgba(125,155,118,.08);
+    pointer-events: none; line-height: 1; user-select: none;
+  }
+  .products-showcase {
+    display: flex; gap: 12px; align-items: flex-end; justify-content: center;
+    position: relative; z-index: 1;
+  }
+  .pump-bottle {
+    border-radius: 12px 12px 8px 8px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: flex-end;
+    padding-bottom: 16px;
+    position: relative; transition: transform .3s ease;
+    cursor: pointer;
+  }
+  .pump-bottle:hover { transform: translateY(-8px); }
+  .pump-bottle .b-label {
+    font-family: var(--serif); font-size: 16px; font-weight: 400;
+    color: rgba(255,255,255,.85);
+  }
+  .pump-bottle .b-cap {
+    position: absolute; top: -18px; left: 50%; transform: translateX(-50%);
+    width: 16px; height: 22px;
+    background: inherit;
+    border-radius: 4px 4px 0 0;
+    filter: brightness(.7);
+  }
+  .pump-bottle .b-pump {
+    position: absolute; top: -38px; left: 50%; transform: translateX(-50%);
+    width: 2px; height: 22px; background: rgba(255,255,255,.4);
+  }
+  .pump-bottle .b-pump::after {
+    content: '';
+    position: absolute; top: 0; left: -6px;
+    width: 14px; height: 6px;
+    background: rgba(255,255,255,.3); border-radius: 2px;
+  }
+
+  .b1 { width: 72px; height: 170px; background: linear-gradient(160deg, #e8ddd0, #c8b89e); }
+  .b2 { width: 72px; height: 200px; background: linear-gradient(160deg, #d8cfc0, #b8a890); }
+  .b3 { width: 80px; height: 190px; background: linear-gradient(160deg, #8fa889, #5d7a58); }
+  .b4 { width: 72px; height: 160px; background: linear-gradient(160deg, #c0ccbe, #7d9b76); }
+  .b5 { width: 68px; height: 150px; background: linear-gradient(160deg, #d0c8bc, #a89880); }
+
+  .allinone-detail {
+    margin-top: 28px; padding-top: 28px;
+    border-top: 1px solid rgba(125,155,118,.2);
+    font-size: 13px; line-height: 1.8; color: var(--text-light);
+    max-width: 480px;
+  }
+  .btn-outline {
+    display: inline-block; margin-top: 20px;
+    border: 1px solid var(--text); color: var(--text);
+    padding: 12px 28px; border-radius: 40px;
+    font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+    text-decoration: none; transition: all .25s; cursor: pointer;
+    background: none;
+  }
+  .btn-outline:hover { background: var(--text); color: var(--warm-white); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--text);
+    color: rgba(255,255,255,.6);
+    padding: 60px 40px 40px;
+    text-align: center;
+  }
+  footer .f-logo {
+    font-family: var(--serif); font-size: 48px; font-weight: 300;
+    color: rgba(255,255,255,.85); margin-bottom: 20px; display: block;
+  }
+  footer p { font-size: 12px; letter-spacing: .08em; line-height: 1.6; }
+  footer nav {
+    position: static; transform: none;
+    background: none; border: none; backdrop-filter: none;
+    margin-top: 28px; display: flex; justify-content: center;
+    animation: none;
+  }
+  footer nav ul li a { color: rgba(255,255,255,.45); }
+  footer nav ul li a:hover { color: var(--sage-light); }
+  .footer-bottom {
+    margin-top: 40px; padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,.1);
+    font-size: 11px; letter-spacing: .06em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateX(-50%) translateY(-16px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+  @keyframes heroReveal {
+    from { opacity: 0; transform: translateX(-50%) translateY(40px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .3; }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity .8s ease, transform .8s cubic-bezier(.16,1,.3,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: .1s; }
+  .reveal-delay-2 { transition-delay: .2s; }
+  .reveal-delay-3 { transition-delay: .3s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav ul { display: none; }
+    .philosophy, .allinone-inner { grid-template-columns: 1fr; }
+    .nature-strip { grid-template-columns: 1fr; }
+    .nature-text { padding: 40px 20px; }
+    section { padding: 60px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">S</a>
+  <ul>
+    <li><a href="#">About us</a></li>
+    <li><a href="#">Catalog</a></li>
+    <li><a href="#">Skincare</a></li>
+    <li><a href="#">Hair & Body</a></li>
+    <li><a href="#">Accessories</a></li>
+    <li><a href="#">Blog</a></li>
+  </ul>
+  <div class="cart">
+    <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-wordmark">sage</div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</div>
+
+<!-- PHILOSOPHY -->
+<section>
+  <div class="philosophy">
+    <div class="philosophy-text reveal">
+      <h2>New philosophy<br>of selfcare: healthy<br><em>skin&hair</em></h2>
+      <p>Sage is about conscious simplicity — effective formulas, thoughtful ingredients, and soft textures designed for real everyday life.</p>
+      <p>We believe skincare should support your skin, not overwhelm it; combining modern science with a calm, minimal approach.</p>
+      <a href="#" class="btn-primary">More about Sage</a>
+    </div>
+    <div class="product-jar reveal reveal-delay-2">
+      <div class="jar-circle">
+        <div class="jar-lid"></div>
+        <span class="jar-label">sage</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NATURE STRIP -->
+<div class="nature-strip">
+  <div class="nature-images reveal">
+    <div class="img-placeholder">
+      <div class="bottle-shape"></div>
+      <span class="product-name">sage</span>
+    </div>
+    <div class="img-placeholder">
+      <div class="bottle-shape"></div>
+      <span class="product-name">sage</span>
+    </div>
+  </div>
+  <div class="nature-text reveal reveal-delay-2">
+    <h2>Pure care<br><em>by nature</em></h2>
+    <p>Thoughtfully crafted formulas designed to bring balance and calm to your daily routine.</p>
+    <p>Lightweight textures, gentle ingredients, and a minimalist approach help support healthy-looking skin — effortlessly, every day.</p>
+    <div class="ingredients-tags">
+      <span class="tag">Hyaluronic Acid</span>
+      <span class="tag">Niacinamide</span>
+      <span class="tag">Ceramides</span>
+      <span class="tag">Peptides</span>
+      <span class="tag">Aloe Vera</span>
+    </div>
+  </div>
+</div>
+
+<!-- ALL-IN-ONE -->
+<div class="allinone">
+  <div class="allinone-inner">
+    <div class="allinone-text reveal">
+      <h2>All-in-One<br>Skincare <em>Complex</em></h2>
+      <p class="subtitle">Multifunctional line designed to simplify your daily routine without compromising results.</p>
+      <p class="allinone-detail">
+        Each formula combines hydration, barrier support, and skin-balancing ingredients to work in one effortless step. The collection focuses on smart minimalism — fewer products, more impact, and consistent care for healthy-looking skin.
+      </p>
+      <a href="#" class="btn-outline">Catalog</a>
+    </div>
+    <div class="products-showcase reveal reveal-delay-2">
+      <div class="pump-bottle b1">
+        <div class="b-pump"></div>
+        <div class="b-cap"></div>
+        <span class="b-label">sage</span>
+      </div>
+      <div class="pump-bottle b2">
+        <div class="b-pump"></div>
+        <div class="b-cap"></div>
+        <span class="b-label">sage</span>
+      </div>
+      <div class="pump-bottle b3">
+        <div class="b-pump"></div>
+        <div class="b-cap"></div>
+        <span class="b-label">sage</span>
+      </div>
+      <div class="pump-bottle b4">
+        <div class="b-pump"></div>
+        <div class="b-cap"></div>
+        <span class="b-label">sage</span>
+      </div>
+      <div class="pump-bottle b5">
+        <div class="b-pump"></div>
+        <div class="b-cap"></div>
+        <span class="b-label">sage</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-word">new</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="f-logo">sage</span>
+  <p>Conscious skincare for everyday life.</p>
+  <nav>
+    <ul>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Catalog</a></li>
+      <li><a href="#">Skincare</a></li>
+      <li><a href="#">Hair & Body</a></li>
+      <li><a href="#">Blog</a></li>
+    </ul>
+  </nav>
+  <p class="footer-bottom">© 2026 Sage. All rights reserved.</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Parallax hero wordmark
+  window.addEventListener('scroll', () => {
+    const wm = document.querySelector('.hero-wordmark');
+    if (wm) {
+      wm.style.transform = `translateX(-50%) translateY(${window.scrollY * 0.3}px)`;
+    }
+  });
+</script>
+</body>
+</html>

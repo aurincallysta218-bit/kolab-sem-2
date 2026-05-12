@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toko Fashion Wanita Online</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        /* ==========================================================================
+           1. RESET & BASE STYLES
+           ========================================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Playfair Display', 'Segoe UI', serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #333333;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* ==========================================================================
+           2. HEADER & NAVIGATION
+           ========================================================================== */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background-color: #ffffff;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: lowercase;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #000;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 15px;
+            font-size: 16px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        /* ==========================================================================
+           3. HERO BANNER SECTION
+           ========================================================================== */
+        .hero-section {
+            display: flex;
+            align-items: center;
+            background-color: #e5edf5; /* Warna latar belakang biru muda soft */
+            padding: 60px 8%;
+            min-height: 500px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-text {
+            flex: 1;
+            z-index: 2;
+            padding-right: 40px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+            color: #2c2c2c;
+        }
+
+        .hero-text p {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            max-width: 400px;
+        }
+
+        .btn-shop {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #ffffff;
+            color: #333;
+            font-weight: 600;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-shop:hover {
+            background-color: #333;
+            color: #fff;
+            border-color: #333;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 100%;
+        }
+
+        /* Menggunakan placeholder gambar ilustrasi model baju */
+        .hero-image img {
+            max-height: 550px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* ==========================================================================
+           4. FEATURES / REVIEWS SECTION
+           ========================================================================== */
+        .features-section {
+            display: flex;
+            justify-content: space-around;
+            background-color: #fcf9f5; /* Warna krem hangat */
+            padding: 40px 5%;
+            text-align: center;
+            border-bottom: 1px solid #f0eae1;
+        }
+
+        .feature-item {
+            flex: 1;
+            padding: 0 20px;
+            border-right: 1px solid #e0d8cc;
+        }
+
+        .feature-item:last-child {
+            border-right: none;
+        }
+
+        .stars {
+            color: #d4af37; /* Warna emas */
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .feature-item h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .feature-item p {
+            font-size: 12px;
+            color: #888;
+        }
+
+        /* ==========================================================================
+           5. PRODUCT GRID SECTIONS (Dresses & Outfits)
+           ========================================================================== */
+        .products-container {
+            padding: 60px 8%;
+            background-color: #fcf9f5;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            font-weight: 400;
+            color: #222;
+        }
+
+        .grid-4-columns, .grid-3-columns {
+            display: grid;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .grid-4-columns {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        .grid-3-columns {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .product-card {
+            background-color: transparent;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image-wrapper {
+            background-color: #f0f0f0;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .product-image-wrapper img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+
+        /* Khusus untuk grid baju gantungan, buat wadah gambar sedikit berbeda panjangnya jika diperlukan */
+        .grid-3-columns .product-image-wrapper img {
+            height: 400px;
+            object-fit: scale-down;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .product-info h4 {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: #444;
+        }
+
+        .product-info .price {
+            font-size: 14px;
+            font-weight: bold;
+            color: #111;
+        }
+
+        /* ==========================================================================
+           6. FOOTER SECTION
+           ========================================================================== */
+        footer {
+            background-color: #a3968c; /* Warna abu-abu kecokelatan sesuai gambar */
+            color: #ffffff;
+            padding: 60px 8% 30px 8%;
+        }
+
+        .footer-widgets {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .widget h3 {
+            font-size: 16px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .widget p {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #e5e5e5;
+        }
+
+        .widget ul li {
+            margin-bottom: 10px;
+        }
+
+        .widget ul li a {
+            font-size: 13px;
+            color: #e5e5e5;
+            transition: color 0.3s;
+        }
+
+        .widget ul li a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        /* Newsletter Input & Button */
+        .newsletter-box {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .newsletter-box input {
+            padding: 10px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            flex: 1;
+            font-size: 13px;
+        }
+
+        .newsletter-box button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #333333;
+            color: #fff;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #e5e5e5;
+        }
+
+        .footer-socials a {
+            margin-left: 15px;
+            font-size: 16px;
+            color: #e5e5e5;
+            transition: color 0.3s;
+        }
+
+        .footer-socials a:hover {
+            color: #fff;
+        }
+
+        /* ==========================================================================
+           7. RESPONSIVE MEDIA QUERIES
+           ========================================================================== */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .hero-section {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 5%;
+            }
+
+            .hero-text {
+                padding-right: 0;
+                margin-bottom: 30px;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-text p {
+                margin: 0 auto 30px auto;
+            }
+
+            .features-section {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .feature-item {
+                border-right: none;
+                border-bottom: 1px solid #e0d8cc;
+                padding-bottom: 15px;
+            }
+
+            .feature-item:last-child {
+                border-bottom: none;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">SM</div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">Fabric</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">Catalog</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="header-icons">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <i class="fa-regular fa-heart"></i>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-text">
+            <h1>Sow noll Lomn</h1>
+            <p>Casual and elegant styles designed for your everyday comfort and confident look.</p>
+            <a href="#" class="btn-shop">Read Review</a>
+        </div>
+        <div class="hero-image">
+            <img src="download (33).jpg" alt="Model Fashion">
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="feature-item">
+            <div class="stars">⭐⭐⭐⭐★</div>
+            <h3>Elegant Floral Dress</h3>
+            <p>Perfect fit for weekend garden parties</p>
+        </div>
+        <div class="feature-item">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <h3>Casual Boho Styles</h3>
+            <p>Lightweight and beautifully structured</p>
+        </div>
+        <div class="feature-item">
+            <div class="stars">⭐⭐⭐⭐★</div>
+            <h3>Modern Casual Outfits</h3>
+            <p>Timeless piece for autumn and spring</p>
+        </div>
+    </section>
+
+    <main class="products-container">
+        
+        <div class="grid-4-columns">
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="download (40).jpg" alt="Dress 1">
+                </div>
+                <div class="product-info">
+                    <h4>Floral Mini Dress</h4>
+                    <p class="price">$110.00</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="download (41).jpg" alt="Dress 2">
+                </div>
+                <div class="product-info">
+                    <h4>Bohemian Maxi Dress</h4>
+                    <p class="price">$135.00</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="download (42).jpg" alt="Dress 3">
+                </div>
+                <div class="product-info">
+                    <h4>A-Line Summer Dress</h4>
+                    <p class="price">$120.00</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="download (43).jpg" alt="Dress 4">
+                </div>
+                <div class="product-info">
+                    <h4>Pure White Gown</h4>
+                    <p class="price">$150.00</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Your New Outfits</h2>
+
+        <div class="grid-3-columns">
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="Blush Crochet Knit Sweater _ Soft Girl Dream 🌸 save for later✨.jpg" alt="Outfit 1">
+                </div>
+                <div class="product-info">
+                    <h4>Blush Knit Sweater</h4>
+                    <p class="price">$145.00</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="Wearing Your Taste.jpg" alt="Outfit 2">
+                </div>
+                <div class="product-info">
+                    <h4>Mauve Pleated Dress</h4>
+                    <p class="price">$180.00</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="download (44).jpg" alt="Outfit 3">
+                </div>
+                <div class="product-info">
+                    <h4>Cream Minimalist V-Neck</h4>
+                    <p class="price">$119.00</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="footer-widgets">
+            <div class="widget">
+                <h3>Paramounting</h3>
+                <p>Bringing you high-quality, sustainably crafted women's fashion to elevate your daily style statement.</p>
+            </div>
+            <div class="widget">
+                <h3>New Hour</h3>
+                <ul>
+                    <li><a href="#">Exclusives</a></li>
+                    <li><a href="#">Our Brands</a></li>
+                    <li><a href="#">Lookbooks</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="widget">
+                <h3>Connect Scales</h3>
+                <ul>
+                    <li><a href="#">Contact Support</a></li>
+                    <li><a href="#">Size Guides</a></li>
+                    <li><a href="#">Shipping & Returns</a></li>
+                    <li><a href="#">Store Locator</a></li>
+                </ul>
+            </div>
+            <div class="widget">
+                <h3>Come Stay</h3>
+                <p>Subscribe to get special discounts and updates.</p>
+                <div class="newsletter-box">
+                    <input type="email" placeholder="Your email address">
+                    <button type="button">Join</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>&copy; 2026. All Rights Reserved. Fabricated Website Concept.</div>
+            <div class="footer-socials">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-pinterest-p"></i></a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
